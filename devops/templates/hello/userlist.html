@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %} 用户信息 {% endblock %}
+
+{% block content %}
+<table border="1">
+<thead>
+    <tr>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>性别</th>
+        <th>编辑</th>
+    </tr>
+</thead>
+<tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.password }}</td>
+        <td>
+                    {% if user.sex == 0 %}
+                            男
+                    {%endif%}
+                    {% if user.sex == 1%}
+                            女
+                    {%endif%}
+        </td>
+        <td>
+            <a href="/batman/usermod/{{user.id}}">修改</a>
+            <a href="/batman/userdel/{{user.id}}">删除</a>
+             <a href="/batman/usernew/">新增</a>
+                </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock %}

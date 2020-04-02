@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %} 修改用户信息 {% endblock %}
+
+{% block content %}
+
+<form action="usermod_ok" method="post"><br>
+ID：<br>
+<input type="text" name='id' value={{user.id}} readonly="readonly">
+    <br>
+用户名：<br>
+<input type="text" name = 'name' value={{user.name}} >
+<br>
+密码:<br>
+<input type="text" name="password" value={{user.password}}>
+ <br>
+性别:<br>
+<input type="text" name="sex" value={{user.sex}}>
+<br><br>
+    <input type="submit" value="确认" >
+</form>
+{% endblock %}

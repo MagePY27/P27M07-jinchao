@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>自动化运维平台</title>
+</head>
+<body>
+<!-- 每个⻚页⾯面都有个标题且样式基本不不会变，可以抽象出来。变的标题内容做成变量量 -->
+<p style="background-color: #57ff2e;">测试模版先套用即可</p>
+<p style="background-color:yellow;">用户列表</p>
+<!-- ⻚页⾯面都内容往往是变化的这⼀一块，做成变量量即可 -->
+<table border="1">
+<thead>
+<tr>
+<th>用户名</th>
+<th>姓名</th>
+<th>年龄</th>
+</tr>
+</thead>
+<tbody>
+{% for user in users %}
+<tr>
+<td>{{ user.username }}</td>
+<td>{{ user.name_cn }}</td>
+<td>{{ user.age }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<!-- 每个⻚页⾯面都有个底部且样式基本不不会变，可以抽象出来 -->
+<p style="background-color:red;">版权所有：马哥教育</p>
+</body>
+</html>

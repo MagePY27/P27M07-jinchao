@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} 新增用户 {% endblock %}
+
+{% block content %}
+
+<form action="usernew_ok" method="post"  >
+用户名：<br>
+<input type="text" name = 'name' >
+<br>
+密码:<br>
+<input type="text" name="password" >
+ <br>
+性别:<br>
+<input type="text" name="sex" >
+<br><br>
+    <input type="submit" value="确认" >
+</form>
+{% endblock %}
