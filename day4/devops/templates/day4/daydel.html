@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %} 确认删除用户 {% endblock %}
+
+{% block content %}
+
+
+<table border="1" >
+<thead>
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>性别</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td>{{ object.id}} </td>
+    <td>{{ object.name }}</td>
+    <td>{{ object.password }}</td>
+    <td>
+        {% if object.sex == 0 %} 男 {% elif object.sex == 1%} 女 {% else %} 未定义 {%endif%}
+    </td>
+</tr>
+</tbody>
+</table>
+<form  method="post" >
+    <button type="submit">确定 </button>
+    <button> <a href="/day4/index/" >返回</a> </button>
+</form>
+
+{% endblock %}

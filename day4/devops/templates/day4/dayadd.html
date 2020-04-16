@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %} 添加用户 {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post"  action="/day4/index/" enctype="multipart/form-data" >
+    姓名:
+    <input type="text" name="name" >
+    <br>
+    {% if form.name %}
+    <p style="color: red">{{form.name}}</p>
+    {% endif%}
+    <br>
+    密码:
+    <input type="password" name="password">
+    <br>
+    {% if form.password %}
+    <p style="color: red">{{ form.password}}</p>
+    {% endif%}
+    <br>
+    电话:
+    <input type="text" name="tel">
+    {% if form.tel %}
+    <p style="color: red">{{ form.tel}}</p>
+    {% endif%}
+    <br>
+    <br>
+    邮箱:
+    <input type="text" name="email">
+    {% if form.email %}
+    <p style="color: red">{{ form.email}}</p>
+    {% endif%}
+    <br>
+    <br>
+    性别:
+    <input type="radio" name="sex" value="0" checked>男
+    <input type="radio" name="sex" value="1">女
+    <br>
+    <br>
+    技能:
+    <select name="skill">
+        <option value="0" selected>Python</option>
+        <option value="1" >Java</option>
+        <option value="2" >PHP</option>
+        <option value="3">C#</option>
+    </select>
+    <br>
+    <br>
+     添加附件:
+    <input type="file" name="file" >
+    {% if form.file %}
+    <p style="color: red">{{ form.file}}</p>
+    {% endif%}
+    <br>
+    <input type="submit" value="保存" name="_save">
+    <button> <a href="/day4/index/" >返回</a> </button>
+</form>
+
+
+
+{% endblock %}

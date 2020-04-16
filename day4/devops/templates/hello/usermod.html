@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %} 修改用户信息 {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post"><br>
+ID：<br>
+<input type="text" name='id' value={{user.id}} readonly="readonly">
+    <br>
+用户名：<br>
+<input type="text" name = 'name' value={{user.name}} >
+    {% if form.name %}
+    <p style="color: red">{{ form.name.errors}}</p>
+    {% endif%}
+<br>
+密码:<br>
+<input type="text" name="password" value={{user.password}}>
+    {% if form.password %}
+    <p style="color: red">{{ form.password.errors}}</p>
+    {% endif%}
+ <br>
+性别:<br>
+    <input type="radio" name="sex" value="0" checked>男
+    <input type="radio" name="sex" value="1">女
+<!--<input type="text" name="sex" value={{user.sex}}>-->
+<br><br>
+    <input type="submit" value="修改" >
+    <input type="submit" value="返回" name="_modout" >
+</form>
+{% endblock %}

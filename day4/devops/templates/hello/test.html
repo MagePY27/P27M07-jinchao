@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>马哥教育</title>
+</head>
+<body>
+<!--<a href="http://www.baidu.com" target="blank">点击我，会跳转</a>-->
+
+<h1>添加用户信息</h1>
+
+<form  method="post" action="{% url 'hello:html'%}" enctype="multipart/form-data" >
+    用户名
+    <br>
+    <input type="text", name="user" ,value="">
+    <br>
+    密码
+    <br>
+    <input type="password" name="password">
+    <br>
+    性别：
+    <input type="radio" name="sex" value="0" checked>男
+    <input type="radio" name="sex" value="1">女
+    <br>
+    <input type="checkbox" name="hobby" value="read"> read
+    <input type="checkbox" name="hobby" value="sport"> sport
+    <br>
+    爱好
+    <select name="he" size="3" multiple>
+        <option value="1" >111</option>
+        <option value="2">选项2</option>
+        <option value="2">选项2</option>
+        <option value="2">选项2</option>
+    </select>
+    个人介绍
+    <br>
+    <textarea name="introduce" cols="15" rows="5">
+    </textarea>
+    <br>
+    添加附件:
+    <input type="file" name="file" >
+    <br>
+    <input type="submit" name="save" value="提交" >
+    <input type="reset"  value="复位">
+</form>
+
+</body>
+</html>

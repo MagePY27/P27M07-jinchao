@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %} 修改用户信息 {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if form %}
+<ul>
+    {{form.errors}}
+</ul>
+{% endif %}
+
+<form method="post"><br>
+ID：<br>
+<input type="text" name='id' value={{user.id}} readonly="readonly">
+    <br>
+用户名：<br>
+<input type="text" name = 'name' value={{user.name}} >
+    {% if form.name %}
+    <p style="color: red">{{ form.name.errors}}</p>
+    {% endif%}
+密码:<br>
+<input type="text" name="password" value={{user.password}}>
+    {% if form.password %}
+    <p style="color: red">{{ form.password.errors}}</p>
+    {% endif%}
+电话:<br>
+<input type="text" name="tel" value={{user.tel}}>
+    {% if form.tel %}
+    <p style="color: red">{{ form.tel.errors}}</p>
+    {% endif%}
+邮箱:<br>
+<input type="text" name="email" value={{user.email}}>
+    {% if form.email %}
+    <p style="color: red">{{ form.email.errors}}</p>
+    {% endif%}
+性别:<br>
+    <input type="radio" name="sex" value="0" checked>男
+    <input type="radio" name="sex" value="1">女
+    <br>
+技能:<br>
+    <input type="radio" name="skill" value="0" checked>Python
+    <input type="radio" name="skill" value="1">PHP
+    <input type="radio" name="skill" value="2">Java
+    <input type="radio" name="skill" value="3">C#
+<br><br>
+    <input type="submit" value="修改" >
+    <input type="submit" value="返回" name="return" >
+</form>
+{% endblock %}

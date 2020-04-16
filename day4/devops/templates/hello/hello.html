@@ -1,0 +1,23 @@
+<html >
+<head>
+    <title> 测试</title>
+</head>
+<body>
+<p style="background-color: blue">
+    hello Django     </p>
+<p style="background-color: #ffb536">
+    hello word        </p>
+<p>{{ testhtm }}</p>
+<!--取列表数据-->
+<li>{{ name.0 }} </li>
+<li>{{ name.1 }} </li>
+<li>{{ name.2 }} </li>
+<!--取字典数据-->
+<li> my name is {{user.name}} my age is {{user.age}}</li>
+<!--for循环取嵌套数据-->
+{% for user in userlist %}
+<li>{{user.username}} is {{user.age}}</li>
+{% endfor %}
+
+</body>
+</html>

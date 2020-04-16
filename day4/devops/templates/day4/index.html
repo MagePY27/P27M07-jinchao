@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %} 用户信息 {% endblock %}
+
+{% block content %}
+
+<form method="get"  action="/day4/index/" >
+    请输入用户名：
+    <input type="text" name="keyword" value="{{object.id}}">
+    <button type="submit" value="Submit" >查询 </button>
+    <input type="submit" name="add" value="新增" >
+</form>
+<table border="2">
+<thead>
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>性别</th>
+        <th>电话</th>
+        <th>邮箱</th>
+        <th>技能</th>
+        <th>编辑</th>
+    </tr>
+</thead>
+<tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id}} </td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.password }}</td>
+        <td>
+            {% if user.sex == 0 %} 男 {% elif user.sex == 1%} 女 {% else %} 未定义 {%endif%}
+        </td>
+        <td>{{ user.tel}} </td>
+        <td>{{ user.email}} </td>
+        <td>
+        {% if user.skill == 0 %} Python {% elif user.skill == 1%} Java {% elif user.skill == 2 %}PHP {% elif user.skill == 3%} C# {% else %} 未定义 {%endif%}
+        </td>
+
+        <td>
+            <button><a href="/day4/daymod/{{user.id}}">修改</a></button>
+            <button><a href="/day4/daydel/{{user.id}}" >删除</a></button>
+
+        </td>
+    </tr>
+    {% endfor %}
+
+
+</tbody>
+</table>
+{% endblock %}
