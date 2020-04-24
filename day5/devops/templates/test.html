@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>界面练习</title>
+    {% load static %}
+    <script type="text/javascript" src="{%  static 'js/jquery-3.5.0.min.js'  %}"></script>
+</head>
+<body>
+    <h2>This is a heading</h2>
+    <p>This is a paragraph.</p>
+    <p>hello</p>
+    <div>我将被jQuery传来的数据覆盖</div>
+    <button type="button">Click me</button>
+
+
+    <script >
+        $("button").click(function(){
+            $("h2").html("hello hello")
+            $("p").hide()
+            $(" div ").html("Hello iMooc!")
+        });
+    </script>
+
+</body>
+</html>
