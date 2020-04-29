@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>自动化运维平台</title>
+</head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<body>
+
+        {% if code == 0 %}
+        <h1>{{ result }}</h1>
+                    {{ next_url }
+    {% else %}
+        <h1>操作失败：</h1><br>
+        <h3>{{ errmsg }}</h3>
+    {% endif %}
+        {{msg}}
+
+<script>
+    let status = {{code}};
+    // let next_url = "{{ next_url|safe }}";
+    let next_url = "{{ next_url }}";
+    let timejump = 1500;
+    $(function(){
+    if (status != 0){
+    timejump = 5000
+    }
+    setTimeout(function(){
+    window.location.href = next_url;
+    }, timejump)
+    })
+</script>
+
+</body>
+
+
+
+</html>

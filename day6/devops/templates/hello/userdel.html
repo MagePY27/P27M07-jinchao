@@ -1,0 +1,25 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body>
+
+<form method="post" action="{% url 'hello:userdel' user.id %}">
+<p class="panel panel-info panel-color panel-heading ">请确认您要删除的用户名：{{user.user}} </p>
+
+<br><br>
+    <div col-md-12 text-right>
+        <button class="btn btn-primary" name="_save">
+            确认
+        </button>
+        <button class="btn btn-primary" name="_modreturn">
+            取消
+        </button>
+    </div>
+</form>
+
+
+</body>
+</html>
