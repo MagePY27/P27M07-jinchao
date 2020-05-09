@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block head %}
+        <link href="/static/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+
+        <!-- Plugin Css-->
+        <link rel="stylesheet" href="/static/assets/magnific-popup/magnific-popup.css" />
+        <link rel="stylesheet" href="/static/assets/jquery-datatables-editable/datatables.css" />
+{% endblock %}
+
+
+
+{% block content %}
+            <div class="wraper container-fluid">
+                <div class="page-title">
+                    <h3 class="title">需求&BUG详情</h3>
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6 m-b-30">
+                                <button  class="btn btn-primary waves-effect waves-light">添加 <i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+
+                        <table id="basic-table" class="table table-hover" width="100%">
+    <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+
+
+                    </div>
+                    <!-- end: page -->
+
+                </div> <!-- end Panel -->
+
+
+            </div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block js %}
+ <script type="text/javascript">
+     $(document).ready(function () {
+        $("#basic-table").DataTable({
+            // 表下方页脚的类型，具体类别比较到，见[官网](https://datatables.net/examples/basic_init/alt_pagination.html)
+            "pagingType": "simple_numbers",
+            //启动搜索框
+            searching: true,
+            destroy : true,
+            // 保存刷新时原表的状态
+            stateSave: true,
+            // 将显示的语言初始化为中文
+            "language": {
+                "lengthMenu": "选择每页 _MENU_ 展示 ",
+                "zeroRecords": "未找到匹配结果--抱歉",
+                "info": "当前显示第 _PAGE_ 页结果，共 _PAGES_ 页",
+                "infoEmpty": "没有数据",
+                "infoFiltered": "(获取 _MAX_ 项结果)",
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "last": "末页"
+                }
+            },
+            // 此处重要，该data就是dataTables要展示的数据.users即为后台传递过来的数据
+            data: {{ users | safe }},
+            columns: [
+                {
+                    data: null,
+                    width: "1%",
+                    // 若想前端显示的不一样，则需要"render"函数
+                    'render': function (data, type, full, meta) {
+                        return meta.row + 1 + meta.settings._iDisplayStart;
+                    }
+                },
+                {
+                    data: "name",
+                    'render': function (data, type, full, meta) {
+                        return '<a class="text-warning" style="color:#007bff" title="年龄为'+ full.age +'">'+ data +'</a>';
+                    }
+                },
+                {data: 'age'}
+            ]
+        })
+    });
+ </script>
+
+
+
+        <!-- Examples -->
+         <script src="/static/assets/magnific-popup/magnific-popup.js"></script>
+        <script src="/static/assets/jquery-datatables-editable/jquery.dataTables.js"></script>
+        <script src="/static/assets/datatables/dataTables.bootstrap.js"></script>
+        <script src="/static/assets/jquery-datatables-editable/datatables.editable.init.js"></script>
+
+{% endblock %}
+
