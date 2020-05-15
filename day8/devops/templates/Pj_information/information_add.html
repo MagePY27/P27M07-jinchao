@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<!-- Page Content Start -->
+            <!-- ================== -->
+
+            <div class="wraper container-fluid">
+                <div class="row">
+                    <!-- Horizontal form -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            {% if object %}
+                                <div class="panel-heading"><h3 class="panel-title">修改需求|BUG</h3></div>
+                            {% else %}
+                                <div class="panel-heading"><h3 class="panel-title">添加需求&BUG</h3></div>
+                            {% endif %}
+
+                            {% if code == 0 %}
+                                <h1 style="color: lawngreen">{{ result }}</h1>
+                            {% endif %}
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="post" action="" >
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">名称</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control"  name="name" value="{{object.name}}" placeholder="需求或BUG名称">
+                                                {% if errmsg.name %}
+                                                    <h4 style="color:red">{{errmsg.name}}</h4>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-3 control-label">开始时间</label>
+                                            <div class="col-sm-5">
+                                                <input type=""  disabled="disabled" class="form-control"   value="{{object.start_date}}" placeholder="默认创建时间，不可手动添加或更改">
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">结束时间</label>
+                                            <div class="col-sm-5">
+                                                <input type="date" class="form-control" name="end_date"  value="{{object.end_date}}" placeholder="添加完成时间,可不填写">
+                                                    {% if errmsg.end_date %}
+                                                        <h4 style="color:red">{{errmsg.end_date}}</h4>
+                                                    {% endif %}
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">负责人</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" name="res_name"  value="{{object.res_name}}" placeholder="请填写相关主要负责人">
+                                                    {% if errmsg.res_name %}
+                                                        <h4 style="color:red">{{errmsg.res_name}}</h4>
+                                                    {% endif %}
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">项目类型</label>
+                                        <div class="col-sm-5">
+                                            <input type="radio" name="project_type" value="0" checked> 故障
+                                            <input type="radio" name="project_type" value="1"> BUG
+                                            <input type="radio" name="project_type" value="2"> 需求
+                                            <input type="radio" name="project_type" value="3"> 完善
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">状态</label>
+                                        <div class="col-sm-5">
+                                            <input type="radio" name="state" value="0" checked> 正在进行
+                                            <input type="radio" name="state" value="1">         失败
+                                            <input type="radio" name="state" value="2">         延期
+                                            <input type="radio" name="state" value="3">         完成
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">详情</label>
+                                        <div class="col-sm-5">
+                                            <textarea name="remarks" cols="55" rows="5" wrap="hard">详细信息, 最大400字, 可以为空</textarea>
+                                                {% if errmsg.remarks %}
+                                                    <h4 style="color:red">{{errmsg.remarks}}</h4>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group m-b-0">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                          <button type="submit" class="btn btn-info" name="_save">确认</button>
+                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                          <button type="submit" class="btn btn-info" name="_return">返回</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> <!-- panel-body -->
+                        </div> <!-- panel -->
+                    </div> <!-- col -->
+                </div> <!-- End row -->
+
+
+
+            </div>
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+
+
+{% endblock %}
+
+
+
+{% block js %}
+{% endblock %}
