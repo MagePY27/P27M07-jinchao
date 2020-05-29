@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load user_tags %}
+{% block head %}
+
+<!-- Plugin Css-->
+        <link rel="stylesheet" href="/static/assets/magnific-popup/magnific-popup.css" />
+        <link rel="stylesheet" href="/static/assets/jquery-datatables-editable/datatables.css" />
+
+        <link href="/static/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wraper container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{user}}编辑权限</h3>
+                    <h6 style="color: #fc2716">权限编辑为全量更新，建议使用角色（组）方式对用户授权！！</h6>
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="panel-body">
+                      <form class="form-horizontal" role="form" action="" method="post">
+                      {% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">权限：</label>
+                                <div class="col-sm-9">
+                                    {% regroup permissions by content_type__app_label as perm_list %}
+                                    {% for permission in perm_list %}
+                                        <div style="margin-bottom: 10px; overflow: hidden">
+                                            <h4>{% if permission.grouper == 'auth' %}认证与授权
+                                            {% elif permission.grouper == 'users' %}操作用户权限
+                                            {% elif permission.grouper == 'taggit' %}标签管理
+                                            {% elif permission.grouper == 'task' %}任务系统{% else %}
+                                                {{ permission.grouper }}{% endif %} </h4>
+                                            <div class="col-sm-12" style="padding-left: 0">
+                                                {% for perm in permission.list %}
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" name="permissions" value="{{ perm.id }}"
+                                                               {% for permission in user.user_permissions.all %}{% ifequal permission.id perm.id %}checked
+                                                               {% endifequal %}{% endfor %}> {{ perm.name }}
+                                                    </label>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-group m-b-1">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" name="_save" class="btn btn-primary">保存</button>
+                                        &emsp;&emsp;&emsp;&emsp;
+                                    <a type="button" class="btn btn-primary" href="/userlist/">返回</a>
+                                </div>
+                            </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script>
+        $('.user').addClass('active');
+        $('.user .groups').addClass('active');
+    </script>
+{% endblock %}
+

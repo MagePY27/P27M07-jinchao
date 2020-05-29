@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+
+
+<!-- Page Content Start -->
+            <!-- ================== -->
+            <div class="wraper container-fluid">
+                <div class="row">
+                    <!-- Horizontal form -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            {% if object %}
+                                <div class="panel-heading"><h3 class="panel-title">修改用户</h3></div>
+                            {% else %}
+                                <div class="panel-heading"><h3 class="panel-title">添加用户</h3></div>
+                            {% endif %}
+
+                            {% if code == 0 %}
+                                <h1 style="color: lawngreen">{{ result }}</h1>
+                            {% endif %}
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="post" action="" >
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">用户名</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control"  name="username" value="{{object.username}}" placeholder="用于登录的用户名">
+                                                {% if errmsg.username %}
+                                                    <h4 style="color:red">{{errmsg.username}}</h4>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-3 control-label">姓名</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" name="name"  value="{{object.name}}" placeholder="真实姓名">
+                                                    {% if errmsg.name %}
+                                                        <h4 style="color:red">{{errmsg.name}}</h4>
+                                                    {% endif %}
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">联系方式</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" name="phone"  value="{{object.phone}}" placeholder="填写有效联系方式">
+                                                    {% if errmsg.phome %}
+                                                        <h4 style="color:red">{{errmsg.phone}}</h4>
+                                                    {% endif %}
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">密码</label>
+                                            <div class="col-sm-5">
+                                                <input type="password" class="form-control" name="password" placeholder="填写用户密码">
+                                                    {% if errmsg.password %}
+                                                        <h4 style="color:red">{{errmsg.password}}</h4>
+                                                    {% endif %}
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">确认密码</label>
+                                        <div class="col-sm-5">
+                                            <input type="password" class="form-control"  name="confirm_password"  placeholder="确认用户密码">
+                                                {% if errmsg.confirm_password %}
+                                                    <h4 style="color:red">{{errmsg.confirm_password}}</h4>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">性别</label>
+                                        <div class="col-sm-5">
+                                            男 <input type="radio" name="sex" value="0" checked>
+                                            女 <input type="radio" name="sex" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">激活</label>
+                                        <div class="col-sm-5">
+                                            暂不激活 <input type="radio" name="is_active" value="0" checked>
+                                            激活 <input type="radio" name="is_active" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-0">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                          <button type="submit" class="btn btn-info" name="_save">确认</button>
+                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                          <a type="button" class="btn btn-primary" href="/userlist/">返回</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> <!-- panel-body -->
+                        </div> <!-- panel -->
+                    </div> <!-- col -->
+                </div> <!-- End row -->
+            </div>
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+{% endblock %}
+{% block js %}
+{% endblock %}

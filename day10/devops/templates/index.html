@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block head %}
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" href="/static/assets/morris/morris.css">
+
+    <!-- sweet alerts 警告 -->
+    <link href="/static/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="wraper container-fluid">
+                <div class="page-title">
+                    <h3 class="title">欢迎访问运维界面</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg">
+                            <i class="ion-alert  text-pink"></i>
+                            <h2 class="m-0 counter">88</h2>
+                            <div>待处理故障</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg">
+                            <i class="ion-lightbulb text-purple"></i>
+                            <h2 class="m-0 counter">88</h2>
+                            <div>待处理BUG</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg">
+                            <i class="ion-android-settings text-info"></i>
+                            <h2 class="m-0 counter">88</h2>
+                            <div>待处理需求</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg">
+                            <i class="ion-trash-a text-pink"></i>
+                            <h2 class="m-0 counter">88</h2>
+                            <div>逾期|放弃</div>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+
+
+
+                <div class="row">
+                     <div class="col-lg-6">
+            <div class="portlet"><!-- /primary heading -->
+                <div class="portlet-heading">
+                    <h3 class="portlet-title text-dark text-uppercase">
+                        311服务器运行状态百分比
+                    </h3>
+                    <div class="portlet-widgets">
+                        <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                        <span class="divider"></span>
+                        <a data-toggle="collapse" data-parent="#accordion1" href="#portlet2"><i
+                                class="ion-minus-round"></i></a>
+                        <span class="divider"></span>
+                        <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="portlet2" class="panel-collapse collapse in">
+                    <div class="portlet-body">
+                        <div id="user-nums" style="height:400px;"></div>
+                    </div>
+                </div>
+            </div> <!-- /Portlet -->
+        </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    也没想好放啥
+                                </h3>
+
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- end col -->
+                </div> <!-- End row -->
+
+
+
+
+
+            </div>
+
+
+
+{% endblock %}
+
+
+
+{% block js %}
+        <!-- Counter-up 动态数字 -->
+        <script src="/static/js/waypoints.min.js" type="text/javascript"></script>
+        <script src="/static/js/jquery.counterup.min.js" type="text/javascript"></script>
+
+        <script src="/static/assets/echarts/echarts.min.js"></script>
+
+ <script>
+        var WorkOrderChart = echarts.init(document.getElementById('user-nums'), 'macarons');
+        $.ajax({
+                    url:"/information/ajaxinspection/",
+                    type:"get",
+                    async: false,
+                    success: function(msg) {
+                         date =  msg.date;
+                        point = msg.point;
+                        datas = msg.datas
+                        console.log(date,point,datas);
+                        }
+                    })
+        WorkOrderOption = {
+            tooltip: {
+                trigger: 'axis',
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},                // 数据视图
+                    magicType: {show: true, type: ['line', 'bar']}, //图形切换
+                    restore: {show: true},           // 数据复原
+                    saveAsImage: {show: true}        // 图形以图片形式保存到本地
+                }
+            },
+            legend: {
+                x: 'left',
+                data: point,
+            },
+
+            xAxis: {
+                type: 'category',
+                data: date,
+            },
+            yAxis: {
+                type: 'value'
+            },
+
+
+            series: [{
+                name: point[0],
+                data: datas[0],
+                type: 'line',
+                     itemStyle: {   // 系列级个性化样式，纵向渐变填充
+                        normal: {
+                            color:'#b30d09'
+                        }
+                    },
+                smooth: true
+            },
+            {
+                name: point[1],
+                data: datas[1],
+                type: 'line',
+                     itemStyle: {   // 系列级个性化样式，纵向渐变填充
+                        normal: {
+                            color:'#1ab323'
+                        }
+                    },
+                smooth: true
+            },
+            {
+                name: point[2],
+                data: datas[2],
+                type: 'line',
+                     itemStyle: {   // 系列级个性化样式，纵向渐变填充
+                        normal: {
+                            color:'#1410b3'
+                        }
+                    },
+                smooth: true
+            }
+            ]
+
+        };
+        WorkOrderChart.setOption(WorkOrderOption);
+    </script>
+
+{% endblock %}
+

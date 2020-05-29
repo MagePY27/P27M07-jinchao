@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block head %}
+
+<!-- Plugin Css-->
+        <link rel="stylesheet" href="/static/assets/magnific-popup/magnific-popup.css" />
+        <link rel="stylesheet" href="/static/assets/jquery-datatables-editable/datatables.css" />
+
+        <link href="/static/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+            <!-- Page Content Start -->
+            <!-- ================== -->
+
+            <div class="wraper container-fluid">
+                <div class="page-title">
+                    <h3 class="title">权限管理</h3>
+                    <h5 class="title" style="color:red">注意！本页面部分为不可恢复数据，请谨慎操作！！ </h5>
+                </div>
+
+
+                <div class="panel">
+                        <table class="table table-bordered table-striped" id="user_p">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" >权限名称</th>
+                                    <th class="text-center" >权限内容</th>
+                                    <th class="text-center" >CodeName</th>
+                                    <th class="text-center" >
+                                    {% if perms.auth.change_permission %}
+                                        编辑
+                                    {% endif %}
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+<!--                            这里加一行form - post表 用jq判断 如果点击添加就弹出来-->
+                                    {% for user in users %}
+                                <tr class="gradeA">
+                                    <td class="text-center">{{ user.name}} </td>
+                                    <td class="text-center">{{ user.content_type }}</td>
+                                    <td class="text-center">{{ user.codename }}</td>
+                                    <td class="actions ">
+                                        {% if perms.auth.change_permission %}
+                                        <a href="/userpermission_updata/{{user.id}}" class="btn btn-danger btn-xs">编辑</a>
+                                        {% endif %}
+                                            {% if perms.auth.delete_permission %}
+                                        <a href="#" class="btn btn-danger btn-xs permissiondel"  uid = "{{ user.id }}" uname = "{{ user.name }}">删除</a>
+                                            {% endif %}
+                                    </td>
+                                </tr>
+                                        {% endfor %}
+
+                            </tbody>
+                        </table>
+
+
+
+
+                    </div>
+                    <!-- end: page -->
+
+                </div> <!-- end Panel -->
+
+
+            </div>
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<script src="/static/assets/sweet-alert/sweet-alert.min.js"></script>
+
+        <script type="text/javascript">
+             $(document).ready(function() {
+                $('#user_p').DataTable({
+                    "pagingType": "full_numbers",
+                    "language": {
+                        "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
+                        "sInfoFiltered": "(从_MAX_条筛选 )",
+                        "sSearch": "搜索:",
+                        "sInfoEmpty": "共筛选到0条",
+                        "sLengthMenu": "每页显示 _MENU_ 条",
+                        "sZeroRecords": "未找到您搜索的内容，请确认搜索信息",
+                        "paginate": {
+                            "sFirst": "首页",
+                            "sLast": "尾页",
+                            "sPrevious": "上一页 ",
+                            "sNext": " 下一页",
+                            "first": "First page",
+                            "last": "Last page",
+                            "next": "Next page",
+                            "previous": "Previous page"
+                        }
+                    }
+                });
+            } );
+         </script>
+
+
+<script type="text/javascript">
+    //Parameter
+    $('.permissiondel').on('click',function(){
+        var delid = $(this).attr("uid")
+        swal({
+            title: "警告!",
+            text: "您正在删除用户组" + $(this).attr("uname") ,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确认删除!",
+            cancelButtonText: "取消删除！",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },function(isConfirm){
+            if (isConfirm) {
+                $.ajax({
+                    url:"/userpermission/",
+                    type:"post",
+                    data:{"id": delid},
+
+                    success: function(msg){
+                        if (msg.code ==0){
+                            swal("成功!", msg.result, "success");
+                        }else{
+                            swal("失败!", msg.result, "error");
+                            }
+                                            }
+                    })
+
+            } else {
+                swal("取消", "您取消了删除操作", "error");
+            }
+        });
+    });
+</script>
+
+
+
+
+        <!-- Examples -->
+        <script src="/static/assets/jquery-datatables-editable/jquery.dataTables.js"></script>
+        <script src="/static/assets/datatables/dataTables.bootstrap.js"></script>
+
+
+{% endblock %}

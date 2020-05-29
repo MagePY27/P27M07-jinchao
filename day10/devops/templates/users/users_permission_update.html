@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<!-- Page Content Start -->
+            <!-- ================== -->
+<div class="wraper container-fluid">
+        <div class="row">
+            <!-- Horizontal form -->
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">修改权限</h3></div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="post" action="" >
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">名称</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control"  name="name" value="{{object.name}}">
+                                        {% if errmsg.username %}
+                                            <h4 style="color:red">{{errmsg.name}}</h4>
+                                        {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">内容</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control"  value="{{object.content_type}}" disabled="disabled">
+                                            {% if errmsg.name %}
+                                                <h4 style="color:red">{{errmsg.name}}</h4>
+                                            {% endif %}
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">CodeName</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control"   value="{{object.codename}}" disabled="disabled">
+                                            {% if errmsg.phome %}
+                                                <h4 style="color:red">{{errmsg.phone}}</h4>
+                                            {% endif %}
+                                    </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                  <button type="submit" class="btn btn-info" name="_save">确认</button>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                    <a type="button" class="btn btn-primary" href="/userpermission/">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- panel-body -->
+                </div> <!-- panel -->
+            </div> <!-- col -->
+        </div> <!-- End row -->
+</div>
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+
+
+{% endblock %}
+
+
+
+{% block js %}
+{% endblock %}

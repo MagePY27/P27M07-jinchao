@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load user_tags %}
+{% block head %}
+    {% block title %}项目列表{% endblock %}
+<!-- Plugin Css-->
+        <link rel="stylesheet" href="/static/assets/magnific-popup/magnific-popup.css" />
+        <link rel="stylesheet" href="/static/assets/jquery-datatables-editable/datatables.css" />
+        <link href="/static/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="wraper container-fluid">
+    <div class="page-title">
+        <h3 class="title">项目列表</h3>
+    </div>
+    <div class="panel">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6 m-b-30">
+                                <a href="{% url 'cmdb:type-add' %}"><button  class="btn btn-primary waves-effect waves-light">添加项目 <i class="fa fa-plus"></i></button></a>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered table-striped" id="example1">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" >涉密名称</th>
+                                    <th class="text-center" >交流名称</th>
+                                    <th class="text-center" >创建时间</th>
+                                    <th class="text-center" >项目状态</th>
+                                    {% if perms.cmdb.change_type or perms.cmdb.delete_type %}
+                                    <th class="text-center" >操作</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                        <tbody>
+                            {% for type in types %}
+                                    <tr>
+                                        <td>{{ type.name }}</td>
+                                        <td>{{ type.name_cn }}</td>
+                                        <td>{{ type.create_time }}</td>
+                                        <td>
+                                            {% if type.project_type == 'Maintain' %} 运维中 {% elif type.project_type == 'Develop' %} 开发中 {%endif%}
+                                        </td>
+
+                                        {% if perms.cmdb.change_type or perms.cmdb.delete_type %}
+                                        <td>
+                                            {% if perms.cmdb.change_type %}
+                                                <a href="{% url 'cmdb:type-edit' type.id %}" class="btn btn-primary btn-xs">编辑</a>
+                                            {% endif %}
+                                            {% if perms.cmdb.delete_type %}
+                                                <a href="{% url 'cmdb:type-delete' type.id %}" class="btn btn-danger btn-xs">删除</a>
+                                            {% endif %}
+                                        </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                        </tbody>
+                        </table>
+                    </div>
+                    <!-- end: page -->
+                </div> <!-- end Panel -->
+</div>
+{% endblock %}
+
+{% block js %}
+        <script src="/static/assets/sweet-alert/sweet-alert.min.js"></script>
+
+        <script type="text/javascript">
+             $(document).ready(function() {
+                $('#example1').DataTable({
+                    "pagingType": "full_numbers",
+                    "language": {
+                        "sInfo": "当前显示第 _START_ 到第 _END_ 条，共 _TOTAL_ 条",
+                        "sInfoFiltered": "(从_MAX_条筛选 )",
+                        "sSearch": "搜索:",
+                        "sInfoEmpty": "共筛选到0条",
+                        "sLengthMenu": "每页显示 _MENU_ 条",
+                        "sZeroRecords": "未找到您搜索的内容，请确认搜索信息",
+                        "paginate": {
+                            "sFirst": "首页",
+                            "sLast": "尾页",
+                            "sPrevious": "上一页 ",
+                            "sNext": " 下一页",
+                            "first": "First page",
+                            "last": "Last page",
+                            "next": "Next page",
+                            "previous": "Previous page"
+                        }
+                    }
+                });
+            } );
+         </script>
+        <!-- Examples -->
+        <script src="/static/assets/jquery-datatables-editable/jquery.dataTables.js"></script>
+        <script src="/static/assets/datatables/dataTables.bootstrap.js"></script>
+
+
+
+
+{% endblock %}

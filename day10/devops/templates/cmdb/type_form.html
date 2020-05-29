@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if object %}编辑{% else %}添加{% endif %}项目
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% if object %}编辑{% else %}添加{% endif %}一个项目</h3>
+                </div>
+                <div class="panel-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                      <form class="form-horizontal" role="form" action="" method="post">
+                      {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name" class="col-sm-3 control-label">涉密名称：</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="name" name="name" value="{{ object.name }}" autocomplete="off">
+                                </div>
+                            </div>
+                          <div class="form-group">
+                                <label for="name_cn" class="col-sm-3 control-label">交流名称：</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="name_cn" name="name_cn" value="{{ object.name_cn }}" autocomplete="off">
+                                </div>
+                          </div>
+                          <div class="form-group">
+                                        <label  class="col-sm-3 control-label">项目状态：</label>
+                                        <div class="col-sm-5">
+                                            运维中 <input type="radio" name="project_type" value="Maintain" checked>
+                                            开发中 <input type="radio" name="project_type" value="Develop">
+                                        </div>
+                           </div>
+
+                          <div class="form-group m-b-0">
+                              <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit"  class="btn btn-primary">保存</button>
+                                     <a type="button" class="btn btn-info" href="{% url 'cmdb:types' %}">返回</a>
+                              </div>
+                          </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $('.taggit').addClass('active');
+        $('.taggit .tag_type').addClass('active');
+    </script>
+{% endblock %}
